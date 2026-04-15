@@ -1,374 +1,667 @@
 import { useState, useEffect, useCallback } from "react";
 import Icon from "@/components/ui/icon";
 
-const slides = [
-  {
-    id: 0,
-    number: "Zn",
-    subtitle: "Атомный номер 30",
-    title: "Цинк",
-    description:
-      "Химический элемент 12-й группы четвёртого периода периодической системы Д. И. Менделеева",
-    icon: "Atom",
-    tag: "ВВЕДЕНИЕ",
-  },
-  {
-    id: 1,
-    number: "01",
-    tag: "ОСОБЕННОСТИ",
-    title: "Физические\nи химические\nсвойства",
-    icon: "Flask",
-    blocks: [
-      {
-        label: "Физические",
-        icon: "Layers",
-        text: "Голубовато-белый металл. Хрупок в холодном состоянии, но при 100–150 °C становится пластичным. Легко плавится, имеет низкую температуру кипения.",
-      },
-      {
-        label: "Химические",
-        icon: "Zap",
-        text: "Проявляет амфотерные свойства — реагирует как с кислотами, так и со щелочами. При нагревании взаимодействует с кислородом, серой и галогенами.",
-      },
-      {
-        label: "В природе",
-        icon: "Mountain",
-        text: "Встречается только в виде соединений. Важнейшие руды: сфалерит ZnS и цинковый шпат ZnCO₃.",
-      },
-    ],
-  },
-  {
-    id: 2,
-    number: "02",
-    tag: "СОЕДИНЕНИЯ",
-    title: "Основные\nсоединения",
-    icon: "Beaker",
-    compounds: [
-      { formula: "ZnO", name: "Оксид цинка", desc: "Белый амфотерный порошок. Мало растворим в воде, растворяется в кислотах и щелочах." },
-      { formula: "Zn(OH)₂", name: "Гидроксид цинка", desc: "Белое амфотерное вещество. Образуется при действии щелочей на соли цинка." },
-      { formula: "ZnCl₂", name: "Хлорид цинка", desc: "Белое гигроскопичное вещество. Используется как флюс в паяльном деле." },
-      { formula: "ZnSO₄", name: "Сульфат цинка", desc: "Белый кристаллогидрат. Применяется в сельском хозяйстве и медицине." },
-      { formula: "ZnCO₃", name: "Карбонат цинка", desc: "Амфотерное соединение. При нагревании разлагается с образованием оксида." },
-    ],
-  },
-  {
-    id: 3,
-    number: "03",
-    tag: "ПРИМЕНЕНИЕ",
-    title: "Сферы\nприменения",
-    icon: "Wrench",
-    applications: [
-      { area: "Промышленность", icon: "Factory", items: ["Цинкование — защита стали от коррозии", "Воздушно-цинковые аккумуляторы и батарейки", "Твёрдые припои"] },
-      { area: "Металлургия", icon: "Flame", items: ["Восстановление золота и серебра", "Подземное выщелачивание", "Извлечение из чернового свинца"] },
-      { area: "Медицина", icon: "Heart", items: ["Оксид цинка как антисептик", "Лечение цинковой недостаточности"] },
-      { area: "Косметология", icon: "Sparkles", items: ["Противовоспалительные свойства", "Средства ухода за кожей", "Борьба с патогенной микрофлорой"] },
-    ],
-  },
-  {
-    id: 4,
-    number: "04",
-    tag: "ПОЛУЧЕНИЕ",
-    title: "Способы\nполучения",
-    icon: "Settings",
-    methods: [
-      {
-        name: "Пирометаллургический",
-        icon: "Flame",
-        step: "01",
-        desc: "Оксид цинка восстанавливают углём или коксом при температуре 1200–1300 °C.",
-      },
-      {
-        name: "Электролитический",
-        icon: "Zap",
-        step: "02",
-        desc: "Сульфид цинка обрабатывают серной кислотой. Полученный раствор сульфата очищают и подвергают электролизу. Чистый цинк осаждается на алюминиевых катодах.",
-      },
-    ],
-  },
-  {
-    id: 5,
-    number: "05",
-    tag: "ИНТЕРЕСНОЕ",
-    title: "Факты\nо цинке",
-    icon: "Star",
-    facts: [
-      { icon: "MessageSquare", text: "Название происходит от немецкого «zine» — «заострённый». Отсылка к заострённым кристаллам, которые образуются после выплавки." },
-      { icon: "Flame", text: "Соли цинка горят в пламени сине-зелёным цветом — это характерная качественная реакция на ион Zn²⁺." },
-      { icon: "Heart", text: "Цинк — жизненно важный микроэлемент. Участвует в работе ферментов карбоангидраза и алкогольдегидрогеназа." },
-      { icon: "Shield", text: "Недостаток цинка вызывает замедление роста, нарушения иммунитета и дерматологические проблемы." },
-    ],
-  },
+const ACCENT = "#FF6B35";
+const ACCENT2 = "#4CAF50";
+const ACCENT3 = "#2196F3";
+const BG = "#FFFBF7";
+
+const navItems = [
+  "Тема урока",
+  "Что такое глагол?",
+  "Вопросы глагола",
+  "Время глагола",
+  "Число глагола",
+  "Частица НЕ",
+  "Закрепление",
 ];
 
-const navItems = ["Введение", "Особенности", "Соединения", "Применение", "Получение", "Интересное"];
+type Slide =
+  | { id: 0 }
+  | { id: 1 }
+  | { id: 2 }
+  | { id: 3 }
+  | { id: 4 }
+  | { id: 5 }
+  | { id: 6 };
 
 export default function Index() {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [direction, setDirection] = useState<"up" | "down">("down");
+  const [direction, setDirection] = useState<"left" | "right">("right");
+  const [revealed, setRevealed] = useState<number[]>([]);
+  const total = navItems.length;
 
-  const goTo = useCallback((index: number) => {
-    if (index === current || animating) return;
-    setDirection(index > current ? "down" : "up");
-    setAnimating(true);
-    setTimeout(() => {
-      setCurrent(index);
-      setAnimating(false);
-    }, 350);
-  }, [current, animating]);
+  const goTo = useCallback(
+    (index: number) => {
+      if (index === current || animating) return;
+      setDirection(index > current ? "right" : "left");
+      setAnimating(true);
+      setRevealed([]);
+      setTimeout(() => {
+        setCurrent(index);
+        setAnimating(false);
+      }, 320);
+    },
+    [current, animating]
+  );
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") goTo(Math.min(current + 1, slides.length - 1));
-      if (e.key === "ArrowUp" || e.key === "ArrowLeft") goTo(Math.max(current - 1, 0));
+      if (e.key === "ArrowRight" || e.key === "ArrowDown")
+        goTo(Math.min(current + 1, total - 1));
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp")
+        goTo(Math.max(current - 1, 0));
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [current, animating, goTo]);
+  }, [current, animating, goTo, total]);
 
-  const slide = slides[current];
+  const reveal = (i: number) => {
+    setRevealed((prev) => (prev.includes(i) ? prev : [...prev, i]));
+  };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] font-ibm text-[#1A1A1A] overflow-hidden relative">
-      {/* Top nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-12 py-6">
-        <div className="font-cormorant text-sm tracking-[0.3em] text-[#888] uppercase">
-          Химический элемент
+    <div
+      className="min-h-screen flex flex-col overflow-hidden"
+      style={{ background: BG, fontFamily: "'Golos Text', sans-serif" }}
+    >
+      {/* Header */}
+      <header
+        className="flex items-center justify-between px-8 py-4 shadow-sm"
+        style={{ background: ACCENT, color: "#fff" }}
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">📚</span>
+          <span className="font-bold text-lg tracking-wide">Русский язык · 3 класс</span>
         </div>
-        <div className="flex gap-8">
+        <div className="flex gap-2 flex-wrap justify-end max-w-2xl">
           {navItems.map((item, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
-              className={`text-xs tracking-[0.2em] uppercase transition-all duration-300 ${
-                current === i
-                  ? "text-[#1A1A1A] font-medium"
-                  : "text-[#AAAAAA] hover:text-[#666]"
-              }`}
+              className="px-3 py-1 rounded-full text-xs font-medium transition-all"
+              style={{
+                background: current === i ? "#fff" : "rgba(255,255,255,0.2)",
+                color: current === i ? ACCENT : "#fff",
+              }}
             >
               {item}
             </button>
           ))}
         </div>
-      </nav>
+      </header>
 
-      {/* Slide counter */}
-      <div className="fixed bottom-8 right-12 z-50 flex items-center gap-3">
-        <span className="font-cormorant text-4xl text-[#E8E6E0] font-light">
-          {String(current + 1).padStart(2, "0")}
-        </span>
-        <span className="text-[#CCC] text-xs">/</span>
-        <span className="text-[#CCC] text-xs">{slides.length}</span>
-      </div>
-
-      {/* Vertical dots */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className={`rounded-full transition-all duration-300 ${
-              current === i ? "w-1.5 h-6 bg-[#1A1A1A]" : "w-1.5 h-1.5 bg-[#CCC] hover:bg-[#999]"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Slide content */}
-      <div
-        className="min-h-screen flex items-center justify-center px-16 pt-20"
-        style={{
-          opacity: animating ? 0 : 1,
-          transform: animating
-            ? direction === "down"
-              ? "translateY(24px)"
-              : "translateY(-24px)"
-            : "translateY(0)",
-          transition: "opacity 0.35s ease, transform 0.35s ease",
-        }}
-      >
-        {/* SLIDE 0 — Введение */}
-        {slide.id === 0 && (
-          <div className="w-full max-w-5xl">
-            <div className="flex items-start gap-24">
-              <div className="flex-1">
-                <div className="text-xs tracking-[0.4em] text-[#AAAAAA] uppercase mb-8">{slide.tag}</div>
-                <div
-                  className="font-cormorant font-light text-[10rem] leading-none text-[#E8E6E0] select-none"
-                  style={{ letterSpacing: "-0.02em" }}
-                >
-                  {slide.number}
-                </div>
-                <h1
-                  className="font-cormorant text-[6rem] leading-none font-light mt-2"
-                  style={{ letterSpacing: "-0.03em" }}
-                >
-                  {slide.title}
-                </h1>
-                <div className="w-12 h-px bg-[#1A1A1A] my-8" />
-                <p className="text-[#666] font-ibm font-light text-lg leading-relaxed max-w-lg">
-                  {slide.description}
-                </p>
+      {/* Slide area */}
+      <div className="flex-1 relative overflow-hidden">
+        <div
+          className="w-full h-full flex items-center justify-center px-10 py-8"
+          style={{
+            opacity: animating ? 0 : 1,
+            transform: animating
+              ? direction === "right"
+                ? "translateX(40px)"
+                : "translateX(-40px)"
+              : "translateX(0)",
+            transition: "opacity 0.32s ease, transform 0.32s ease",
+          }}
+        >
+          {/* СЛАЙД 0 — Тема урока */}
+          {current === 0 && (
+            <div className="text-center max-w-3xl mx-auto">
+              <div
+                className="inline-block px-6 py-2 rounded-full text-white text-sm font-medium mb-6"
+                style={{ background: ACCENT }}
+              >
+                Урок русского языка
               </div>
-              <div className="flex flex-col gap-6 pt-16">
-                <div className="border border-[#E0DED8] p-6 w-44">
-                  <div className="text-xs text-[#AAAAAA] tracking-widest uppercase mb-1">Период</div>
-                  <div className="font-cormorant text-3xl font-light">4-й</div>
-                </div>
-                <div className="border border-[#E0DED8] p-6 w-44">
-                  <div className="text-xs text-[#AAAAAA] tracking-widest uppercase mb-1">Группа</div>
-                  <div className="font-cormorant text-3xl font-light">12-я</div>
-                </div>
-                <div className="border border-[#E0DED8] p-6 w-44">
-                  <div className="text-xs text-[#AAAAAA] tracking-widest uppercase mb-1">Атомная масса</div>
-                  <div className="font-cormorant text-3xl font-light">65,38</div>
-                </div>
-                <div className="border border-[#E0DED8] p-6 w-44">
-                  <div className="text-xs text-[#AAAAAA] tracking-widest uppercase mb-1">Символ</div>
-                  <div className="font-cormorant text-3xl font-light italic">Zn</div>
-                </div>
+              <h1
+                className="font-bold mb-6"
+                style={{ fontSize: "clamp(3rem, 8vw, 5.5rem)", color: "#1A1A1A", lineHeight: 1.1 }}
+              >
+                Глагол
+              </h1>
+              <div
+                className="text-2xl font-medium mb-8"
+                style={{ color: "#666" }}
+              >
+                Часть речи, которая обозначает действие предмета
+              </div>
+              <div className="flex justify-center gap-6 flex-wrap">
+                {["бежать 🏃", "читать 📖", "рисовать 🎨", "петь 🎵", "играть ⚽"].map(
+                  (w, i) => (
+                    <span
+                      key={i}
+                      className="px-5 py-2 rounded-2xl text-xl font-semibold"
+                      style={{
+                        background: ["#FFE0D4", "#D4EDDA", "#D4E6F1", "#FFF3CD", "#F8D7DA"][i],
+                        color: "#333",
+                      }}
+                    >
+                      {w}
+                    </span>
+                  )
+                )}
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* SLIDE 1 — Особенности */}
-        {slide.id === 1 && (
-          <div className="w-full max-w-5xl">
-            <div className="text-xs tracking-[0.4em] text-[#AAAAAA] uppercase mb-4">{slide.tag}</div>
-            <h2 className="font-cormorant text-7xl font-light leading-none mb-12" style={{ letterSpacing: "-0.02em" }}>
-              {slide.title!.split("\n").map((l, i) => <span key={i}>{l}<br /></span>)}
-            </h2>
-            <div className="grid grid-cols-3 gap-px bg-[#E0DED8]">
-              {slide.blocks?.map((block, i) => (
-                <div key={i} className="bg-[#F8F7F4] p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Icon name={block.icon} size={16} className="text-[#888]" />
-                    <span className="text-xs tracking-[0.25em] uppercase text-[#888]">{block.label}</span>
+          {/* СЛАЙД 1 — Что такое глагол */}
+          {current === 1 && (
+            <div className="w-full max-w-4xl">
+              <SectionTitle color={ACCENT}>Что такое глагол?</SectionTitle>
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                <Card color="#FFF3E0" border="#FFCC80">
+                  <div className="text-4xl mb-3">📌</div>
+                  <div className="font-bold text-xl mb-2" style={{ color: "#E65100" }}>
+                    Определение
                   </div>
-                  <p className="text-[#333] font-light leading-relaxed text-sm">{block.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* SLIDE 2 — Соединения */}
-        {slide.id === 2 && (
-          <div className="w-full max-w-5xl">
-            <div className="text-xs tracking-[0.4em] text-[#AAAAAA] uppercase mb-4">{slide.tag}</div>
-            <h2 className="font-cormorant text-7xl font-light leading-none mb-12" style={{ letterSpacing: "-0.02em" }}>
-              {slide.title!.split("\n").map((l, i) => <span key={i}>{l}<br /></span>)}
-            </h2>
-            <div className="space-y-px bg-[#E0DED8]">
-              {slide.compounds?.map((c, i) => (
-                <div key={i} className="bg-[#F8F7F4] flex items-start gap-12 px-8 py-5">
-                  <div className="font-cormorant text-2xl italic text-[#1A1A1A] w-28 shrink-0">{c.formula}</div>
-                  <div className="text-xs tracking-[0.2em] uppercase text-[#888] w-44 shrink-0 pt-1">{c.name}</div>
-                  <div className="text-[#555] font-light text-sm leading-relaxed">{c.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* SLIDE 3 — Применение */}
-        {slide.id === 3 && (
-          <div className="w-full max-w-5xl">
-            <div className="text-xs tracking-[0.4em] text-[#AAAAAA] uppercase mb-4">{slide.tag}</div>
-            <h2 className="font-cormorant text-7xl font-light leading-none mb-12" style={{ letterSpacing: "-0.02em" }}>
-              {slide.title!.split("\n").map((l, i) => <span key={i}>{l}<br /></span>)}
-            </h2>
-            <div className="grid grid-cols-2 gap-px bg-[#E0DED8]">
-              {slide.applications?.map((app, i) => (
-                <div key={i} className="bg-[#F8F7F4] p-8">
-                  <div className="flex items-center gap-3 mb-5">
-                    <Icon name={app.icon} size={16} className="text-[#888]" />
-                    <span className="text-xs tracking-[0.25em] uppercase text-[#888]">{app.area}</span>
+                  <div className="text-lg leading-snug text-gray-700">
+                    <b>Глагол</b> — это часть речи, которая обозначает{" "}
+                    <span style={{ color: ACCENT }} className="font-bold">
+                      действие предмета
+                    </span>{" "}
+                    и отвечает на вопросы <b>что делать? что сделать?</b>
                   </div>
-                  <ul className="space-y-2">
-                    {app.items.map((item, j) => (
-                      <li key={j} className="flex items-start gap-3 text-sm text-[#444] font-light">
-                        <span className="text-[#CCC] mt-1">—</span>
-                        {item}
+                </Card>
+                <Card color="#E8F5E9" border="#A5D6A7">
+                  <div className="text-4xl mb-3">💡</div>
+                  <div className="font-bold text-xl mb-2" style={{ color: "#2E7D32" }}>
+                    Примеры в предложениях
+                  </div>
+                  <ul className="space-y-2 text-lg text-gray-700">
+                    {[
+                      ["Кот", "спит", "на диване."],
+                      ["Дети", "играют", "во дворе."],
+                      ["Мама", "читает", "книгу."],
+                    ].map(([sub, verb, rest], i) => (
+                      <li key={i}>
+                        {sub}{" "}
+                        <span
+                          className="font-bold px-1 rounded"
+                          style={{ background: "#C8E6C9", color: "#1B5E20" }}
+                        >
+                          {verb}
+                        </span>{" "}
+                        {rest}
                       </li>
                     ))}
                   </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* SLIDE 4 — Получение */}
-        {slide.id === 4 && (
-          <div className="w-full max-w-5xl">
-            <div className="text-xs tracking-[0.4em] text-[#AAAAAA] uppercase mb-4">{slide.tag}</div>
-            <h2 className="font-cormorant text-7xl font-light leading-none mb-16" style={{ letterSpacing: "-0.02em" }}>
-              {slide.title!.split("\n").map((l, i) => <span key={i}>{l}<br /></span>)}
-            </h2>
-            <div className="grid grid-cols-2 gap-12">
-              {slide.methods?.map((m, i) => (
-                <div key={i} className="relative">
-                  <div className="font-cormorant text-[7rem] font-light text-[#EEECE8] leading-none absolute -top-8 -left-2 select-none">
-                    {m.step}
+                </Card>
+                <Card color="#E3F2FD" border="#90CAF9" className="col-span-2">
+                  <div className="text-4xl mb-3">🔍</div>
+                  <div className="font-bold text-xl mb-3" style={{ color: "#1565C0" }}>
+                    Глагол в предложении — это сказуемое
                   </div>
-                  <div className="relative z-10 pt-10 pl-4">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Icon name={m.icon} size={16} className="text-[#888]" />
-                      <span className="text-xs tracking-[0.25em] uppercase text-[#888]">{m.name}</span>
+                  <div className="text-lg text-gray-700">
+                    В предложении глагол чаще всего является{" "}
+                    <span
+                      className="font-bold px-2 py-0.5 rounded"
+                      style={{ background: "#BBDEFB", color: "#0D47A1" }}
+                    >
+                      сказуемым
+                    </span>{" "}
+                    и подчёркивается двумя чертами.
+                  </div>
+                </Card>
+              </div>
+            </div>
+          )}
+
+          {/* СЛАЙД 2 — Вопросы */}
+          {current === 2 && (
+            <div className="w-full max-w-4xl">
+              <SectionTitle color={ACCENT3}>На какие вопросы отвечает глагол?</SectionTitle>
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                <Card color="#E3F2FD" border="#90CAF9">
+                  <div className="text-3xl mb-3">❓</div>
+                  <div className="font-bold text-xl mb-4" style={{ color: ACCENT3 }}>
+                    Несовершенный вид
+                  </div>
+                  <div
+                    className="text-5xl font-bold mb-3 text-center"
+                    style={{ color: ACCENT3 }}
+                  >
+                    что делать?
+                  </div>
+                  <div className="flex flex-wrap gap-2 justify-center mt-3">
+                    {["читать", "бежать", "петь", "рисовать", "играть"].map((w, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-1 rounded-full font-medium"
+                        style={{ background: "#BBDEFB", color: "#0D47A1" }}
+                      >
+                        {w}
+                      </span>
+                    ))}
+                  </div>
+                </Card>
+                <Card color="#FCE4EC" border="#F48FB1">
+                  <div className="text-3xl mb-3">❓</div>
+                  <div className="font-bold text-xl mb-4" style={{ color: "#C62828" }}>
+                    Совершенный вид
+                  </div>
+                  <div
+                    className="text-5xl font-bold mb-3 text-center"
+                    style={{ color: "#E53935" }}
+                  >
+                    что сделать?
+                  </div>
+                  <div className="flex flex-wrap gap-2 justify-center mt-3">
+                    {["прочитать", "пробежать", "спеть", "нарисовать", "сыграть"].map(
+                      (w, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 rounded-full font-medium"
+                          style={{ background: "#FFCDD2", color: "#B71C1C" }}
+                        >
+                          {w}
+                        </span>
+                      )
+                    )}
+                  </div>
+                </Card>
+                <Card color="#F3E5F5" border="#CE93D8" className="col-span-2">
+                  <div className="text-3xl mb-3">🎯</div>
+                  <div className="font-bold text-xl mb-3" style={{ color: "#6A1B9A" }}>
+                    Задание: найди глаголы!
+                  </div>
+                  <div className="text-lg text-gray-700 leading-relaxed">
+                    <b>Берёза шумит, ветер дует, птица летит, солнце светит, дети смеются.</b>
+                    <div className="mt-2 text-base text-gray-500">
+                      Выпиши все глаголы и задай к ним вопрос.
                     </div>
-                    <p className="text-[#444] font-light leading-relaxed">{m.desc}</p>
                   </div>
-                </div>
-              ))}
+                </Card>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* SLIDE 5 — Интересное */}
-        {slide.id === 5 && (
-          <div className="w-full max-w-5xl">
-            <div className="text-xs tracking-[0.4em] text-[#AAAAAA] uppercase mb-4">{slide.tag}</div>
-            <h2 className="font-cormorant text-7xl font-light leading-none mb-12" style={{ letterSpacing: "-0.02em" }}>
-              {slide.title!.split("\n").map((l, i) => <span key={i}>{l}<br /></span>)}
-            </h2>
-            <div className="grid grid-cols-2 gap-px bg-[#E0DED8]">
-              {slide.facts?.map((fact, i) => (
-                <div key={i} className="bg-[#F8F7F4] p-8 flex gap-5">
-                  <Icon name={fact.icon} size={18} className="text-[#AAAAAA] shrink-0 mt-0.5" />
-                  <p className="text-[#444] font-light leading-relaxed text-sm">{fact.text}</p>
-                </div>
-              ))}
+          {/* СЛАЙД 3 — Время глагола */}
+          {current === 3 && (
+            <div className="w-full max-w-5xl">
+              <SectionTitle color={ACCENT2}>Времена глагола</SectionTitle>
+              <div className="grid grid-cols-3 gap-5 mt-8">
+                {[
+                  {
+                    time: "Прошедшее",
+                    emoji: "⏪",
+                    q: "что делал?\nчто сделал?",
+                    color: "#FFF8E1",
+                    border: "#FFD54F",
+                    text: "#E65100",
+                    words: ["читал", "прочитал", "бежал", "пел"],
+                    hint: "Действие уже произошло",
+                  },
+                  {
+                    time: "Настоящее",
+                    emoji: "⏺",
+                    q: "что делает?\nчто делаю?",
+                    color: "#E8F5E9",
+                    border: "#66BB6A",
+                    text: "#1B5E20",
+                    words: ["читает", "бежит", "поёт", "играет"],
+                    hint: "Действие происходит сейчас",
+                  },
+                  {
+                    time: "Будущее",
+                    emoji: "⏩",
+                    q: "что будет делать?\nчто сделает?",
+                    color: "#E3F2FD",
+                    border: "#42A5F5",
+                    text: "#0D47A1",
+                    words: ["прочитает", "будет бежать", "споёт", "сыграет"],
+                    hint: "Действие ещё не случилось",
+                  },
+                ].map((t, i) => (
+                  <Card key={i} color={t.color} border={t.border}>
+                    <div className="text-4xl mb-2 text-center">{t.emoji}</div>
+                    <div
+                      className="font-bold text-xl text-center mb-1"
+                      style={{ color: t.text }}
+                    >
+                      {t.time}
+                    </div>
+                    <div
+                      className="text-center text-sm font-medium mb-3 opacity-70"
+                      style={{ color: t.text }}
+                    >
+                      {t.hint}
+                    </div>
+                    <div
+                      className="text-center font-bold text-base mb-3 whitespace-pre-line"
+                      style={{ color: t.text }}
+                    >
+                      {t.q}
+                    </div>
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      {t.words.map((w, j) => (
+                        <span
+                          key={j}
+                          className="px-2 py-0.5 rounded-full text-sm font-medium"
+                          style={{
+                            background: t.border + "66",
+                            color: t.text,
+                          }}
+                        >
+                          {w}
+                        </span>
+                      ))}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+              <div
+                className="mt-5 p-4 rounded-2xl text-center text-lg font-medium"
+                style={{ background: "#F3E5F5", color: "#6A1B9A" }}
+              >
+                🌟 Глаголы в <b>настоящем и будущем</b> времени изменяются по числам и лицам. В{" "}
+                <b>прошедшем</b> — по числам и родам!
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* СЛАЙД 4 — Число глагола */}
+          {current === 4 && (
+            <div className="w-full max-w-4xl">
+              <SectionTitle color="#9C27B0">Число глагола</SectionTitle>
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                <Card color="#F3E5F5" border="#CE93D8">
+                  <div className="text-5xl text-center mb-3">1️⃣</div>
+                  <div className="font-bold text-2xl text-center mb-4" style={{ color: "#6A1B9A" }}>
+                    Единственное число
+                  </div>
+                  <div className="text-center text-gray-600 mb-4">(один предмет)</div>
+                  <div className="space-y-2">
+                    {[
+                      ["Кот", "спит"],
+                      ["Птица", "летит"],
+                      ["Ученик", "пишет"],
+                    ].map(([sub, verb], i) => (
+                      <div
+                        key={i}
+                        className="flex items-center justify-between px-4 py-2 rounded-xl"
+                        style={{ background: "#EDE7F6" }}
+                      >
+                        <span className="text-lg">{sub}</span>
+                        <span
+                          className="font-bold text-lg"
+                          style={{ color: "#6A1B9A" }}
+                        >
+                          {verb}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+                <Card color="#E8EAF6" border="#9FA8DA">
+                  <div className="text-5xl text-center mb-3">2️⃣+</div>
+                  <div className="font-bold text-2xl text-center mb-4" style={{ color: "#283593" }}>
+                    Множественное число
+                  </div>
+                  <div className="text-center text-gray-600 mb-4">(несколько предметов)</div>
+                  <div className="space-y-2">
+                    {[
+                      ["Коты", "спят"],
+                      ["Птицы", "летят"],
+                      ["Ученики", "пишут"],
+                    ].map(([sub, verb], i) => (
+                      <div
+                        key={i}
+                        className="flex items-center justify-between px-4 py-2 rounded-xl"
+                        style={{ background: "#C5CAE9" }}
+                      >
+                        <span className="text-lg">{sub}</span>
+                        <span
+                          className="font-bold text-lg"
+                          style={{ color: "#283593" }}
+                        >
+                          {verb}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              </div>
+              <div
+                className="mt-5 p-4 rounded-2xl text-center text-lg"
+                style={{ background: "#FFF3E0", color: "#E65100" }}
+              >
+                🎓 Чтобы определить число глагола — найди подлежащее (о ком/о чём говорится) и
+                задай от него вопрос к глаголу.
+              </div>
+            </div>
+          )}
+
+          {/* СЛАЙД 5 — Частица НЕ */}
+          {current === 5 && (
+            <div className="w-full max-w-4xl">
+              <SectionTitle color="#F44336">Частица НЕ с глаголами</SectionTitle>
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                <Card color="#FFEBEE" border="#EF9A9A">
+                  <div className="text-4xl mb-3">📝</div>
+                  <div className="font-bold text-xl mb-3" style={{ color: "#C62828" }}>
+                    Правило
+                  </div>
+                  <div
+                    className="text-3xl font-bold text-center py-4 rounded-xl mb-3"
+                    style={{ background: "#FFCDD2", color: "#B71C1C" }}
+                  >
+                    НЕ с глаголами<br />пишется РАЗДЕЛЬНО
+                  </div>
+                  <div className="text-lg text-gray-700">
+                    Частица <b>не</b> с глаголами всегда пишется <b>отдельно</b>, через пробел.
+                  </div>
+                </Card>
+                <Card color="#E8F5E9" border="#A5D6A7">
+                  <div className="text-4xl mb-3">✅</div>
+                  <div className="font-bold text-xl mb-3" style={{ color: "#2E7D32" }}>
+                    Примеры
+                  </div>
+                  <div className="space-y-3">
+                    {[
+                      ["не читал", "не читает"],
+                      ["не спал", "не спит"],
+                      ["не бежал", "не бежит"],
+                      ["не пел", "не поёт"],
+                    ].map(([a, b], i) => (
+                      <div key={i} className="flex gap-3">
+                        <span
+                          className="px-3 py-1 rounded-full font-bold"
+                          style={{ background: "#C8E6C9", color: "#1B5E20" }}
+                        >
+                          {a}
+                        </span>
+                        <span
+                          className="px-3 py-1 rounded-full font-bold"
+                          style={{ background: "#C8E6C9", color: "#1B5E20" }}
+                        >
+                          {b}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+                <Card color="#FFF9C4" border="#FFF176" className="col-span-2">
+                  <div className="text-3xl mb-2">⚠️ Исключения</div>
+                  <div className="text-lg text-gray-700">
+                    Некоторые глаголы без <b>не</b> не употребляются и пишутся <b>слитно</b>:{" "}
+                    <span className="font-bold" style={{ color: "#E65100" }}>
+                      ненавидеть, негодовать, нездоровиться, несдобровать
+                    </span>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          )}
+
+          {/* СЛАЙД 6 — Закрепление */}
+          {current === 6 && (
+            <div className="w-full max-w-5xl">
+              <SectionTitle color={ACCENT}>Закрепление</SectionTitle>
+              <div className="grid grid-cols-3 gap-4 mt-8">
+                {[
+                  {
+                    q: "На какой вопрос отвечает глагол?",
+                    a: "Что делать? Что сделать? и другие вопросы действия.",
+                    emoji: "❓",
+                    color: "#E3F2FD",
+                    border: "#90CAF9",
+                    acolor: "#0D47A1",
+                  },
+                  {
+                    q: "Какие три времени есть у глагола?",
+                    a: "Прошедшее, настоящее, будущее.",
+                    emoji: "⏰",
+                    color: "#FFF8E1",
+                    border: "#FFD54F",
+                    acolor: "#E65100",
+                  },
+                  {
+                    q: "Каким членом предложения является глагол?",
+                    a: "Глагол — это сказуемое. Подчёркивается двумя чертами.",
+                    emoji: "📝",
+                    color: "#E8F5E9",
+                    border: "#A5D6A7",
+                    acolor: "#1B5E20",
+                  },
+                  {
+                    q: "Как пишется НЕ с глаголами?",
+                    a: "Раздельно! «не читал», «не бежит».",
+                    emoji: "✍️",
+                    color: "#FFEBEE",
+                    border: "#EF9A9A",
+                    acolor: "#B71C1C",
+                  },
+                  {
+                    q: "Как изменяются глаголы?",
+                    a: "По временам, числам, лицам и (в прошедшем) по родам.",
+                    emoji: "🔄",
+                    color: "#F3E5F5",
+                    border: "#CE93D8",
+                    acolor: "#6A1B9A",
+                  },
+                  {
+                    q: "Найди глагол: дом, бежать, красивый, петь?",
+                    a: "бежать и петь — это глаголы!",
+                    emoji: "🔎",
+                    color: "#FFF3E0",
+                    border: "#FFCC80",
+                    acolor: "#BF360C",
+                  },
+                ].map((item, i) => (
+                  <button
+                    key={i}
+                    onClick={() => reveal(i)}
+                    className="text-left rounded-2xl p-5 transition-all hover:scale-105 border-2"
+                    style={{
+                      background: revealed.includes(i) ? item.color : "#fff",
+                      borderColor: item.border,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div className="text-3xl mb-2">{item.emoji}</div>
+                    <div className="font-semibold text-gray-800 text-sm leading-snug mb-2">
+                      {item.q}
+                    </div>
+                    {revealed.includes(i) ? (
+                      <div
+                        className="text-sm font-bold mt-2"
+                        style={{ color: item.acolor }}
+                      >
+                        {item.a}
+                      </div>
+                    ) : (
+                      <div className="text-xs text-gray-400 mt-2">
+                        Нажми, чтобы узнать ответ
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+              <div
+                className="mt-5 text-center text-xl font-bold py-3 rounded-2xl"
+                style={{ background: "#FFF3E0", color: ACCENT }}
+              >
+                🎉 Молодцы! Глагол — важная часть речи. Без него невозможно составить предложение!
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Bottom nav arrows */}
-      <div className="fixed bottom-8 left-12 z-50 flex gap-4">
+      {/* Footer nav */}
+      <footer
+        className="flex items-center justify-between px-8 py-3 border-t"
+        style={{ borderColor: "#FFD7C4", background: "#FFF5F0" }}
+      >
         <button
           onClick={() => goTo(Math.max(current - 1, 0))}
           disabled={current === 0}
-          className="w-10 h-10 border border-[#E0DED8] flex items-center justify-center text-[#888] hover:border-[#999] hover:text-[#333] disabled:opacity-20 transition-all"
+          className="flex items-center gap-2 px-5 py-2 rounded-full font-semibold transition-all disabled:opacity-30"
+          style={{ background: ACCENT, color: "#fff" }}
         >
-          <Icon name="ChevronLeft" size={16} />
+          <Icon name="ChevronLeft" size={18} />
+          Назад
         </button>
-        <button
-          onClick={() => goTo(Math.min(current + 1, slides.length - 1))}
-          disabled={current === slides.length - 1}
-          className="w-10 h-10 border border-[#E0DED8] flex items-center justify-center text-[#888] hover:border-[#999] hover:text-[#333] disabled:opacity-20 transition-all"
-        >
-          <Icon name="ChevronRight" size={16} />
-        </button>
-      </div>
 
-      {/* Subtle background decoration */}
-      <div
-        className="fixed top-0 right-0 w-1/3 h-full pointer-events-none"
-        style={{
-          background: "linear-gradient(135deg, transparent 60%, rgba(180,175,165,0.04) 100%)",
-        }}
-      />
+        <div className="flex items-center gap-2">
+          {Array.from({ length: total }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className="rounded-full transition-all"
+              style={{
+                width: current === i ? 28 : 10,
+                height: 10,
+                background: current === i ? ACCENT : "#FFCC9E",
+              }}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={() => goTo(Math.min(current + 1, total - 1))}
+          disabled={current === total - 1}
+          className="flex items-center gap-2 px-5 py-2 rounded-full font-semibold transition-all disabled:opacity-30"
+          style={{ background: ACCENT, color: "#fff" }}
+        >
+          Далее
+          <Icon name="ChevronRight" size={18} />
+        </button>
+      </footer>
     </div>
+  );
+}
+
+function Card({
+  children,
+  color,
+  border,
+  className = "",
+}: {
+  children: React.ReactNode;
+  color: string;
+  border: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`rounded-2xl p-6 border-2 ${className}`}
+      style={{ background: color, borderColor: border }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function SectionTitle({ children, color }: { children: React.ReactNode; color: string }) {
+  return (
+    <h2
+      className="font-bold text-center"
+      style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color, lineHeight: 1.2 }}
+    >
+      {children}
+    </h2>
   );
 }
