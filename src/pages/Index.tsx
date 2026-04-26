@@ -257,17 +257,17 @@ export default function Index() {
     <div
       className="min-h-screen flex flex-col overflow-hidden"
       style={{
-        background: "#0D1117",
-        color: "#E8EDF2",
+        background: "#F5F7FA",
+        color: "#1A2332",
         fontFamily: "'Golos Text', sans-serif",
       }}
     >
       {/* Header */}
       <header
         className="flex items-center justify-between px-8 py-3 border-b"
-        style={{ borderColor: "#1E2A38", background: "#111820" }}
+        style={{ borderColor: "#DDE3EC", background: "#FFFFFF" }}
       >
-        <div className="text-xs font-semibold tracking-widest uppercase" style={{ color: "#4A7FA5" }}>
+        <div className="text-xs font-semibold tracking-widest uppercase" style={{ color: "#2A7AB5" }}>
           В.И. Вернадский · Биосфера
         </div>
         <div className="hidden md:flex gap-1.5 flex-wrap justify-end max-w-3xl">
@@ -277,16 +277,16 @@ export default function Index() {
               onClick={() => goTo(i)}
               className="px-3 py-1 rounded text-xs font-medium transition-all"
               style={{
-                background: current === i ? "#1E4A6B" : "transparent",
-                color: current === i ? "#7EC8E3" : "#6B8099",
-                border: current === i ? "1px solid #2A6090" : "1px solid transparent",
+                background: current === i ? "#E8F2FB" : "transparent",
+                color: current === i ? "#1A5E99" : "#7A90A8",
+                border: current === i ? "1px solid #AACAE6" : "1px solid transparent",
               }}
             >
               {item}
             </button>
           ))}
         </div>
-        <div className="text-xs" style={{ color: "#4A7FA5" }}>
+        <div className="text-xs" style={{ color: "#2A7AB5" }}>
           {current + 1} / {total}
         </div>
       </header>
@@ -310,31 +310,31 @@ export default function Index() {
             <div className="text-center max-w-3xl">
               <div
                 className="text-8xl mb-8"
-                style={{ filter: "drop-shadow(0 0 40px rgba(78,198,230,0.3))" }}
+                style={{ filter: "drop-shadow(0 4px 16px rgba(42,122,181,0.15))" }}
               >
                 {s.decoration}
               </div>
               <div
                 className="inline-block px-4 py-1.5 rounded text-xs font-semibold tracking-widest uppercase mb-6"
-                style={{ background: "#1E3A52", color: "#7EC8E3", border: "1px solid #2A6090" }}
+                style={{ background: "#E8F2FB", color: "#1A5E99", border: "1px solid #AACAE6" }}
               >
                 {s.tag}
               </div>
               <h1
                 className="font-bold leading-tight mb-4"
-                style={{ fontSize: "clamp(2rem, 4.5vw, 3.2rem)", color: "#E8F4F8" }}
+                style={{ fontSize: "clamp(2rem, 4.5vw, 3.2rem)", color: "#1A2332" }}
               >
                 {s.title}
               </h1>
               <h2
                 className="font-light"
-                style={{ fontSize: "clamp(1.4rem, 3vw, 2.2rem)", color: "#7EC8E3" }}
+                style={{ fontSize: "clamp(1.4rem, 3vw, 2.2rem)", color: "#2A7AB5" }}
               >
                 {s.subtitle}
               </h2>
               <div
                 className="mt-10 w-24 h-px mx-auto"
-                style={{ background: "linear-gradient(90deg, transparent, #2A6090, transparent)" }}
+                style={{ background: "linear-gradient(90deg, transparent, #AACAE6, transparent)" }}
               />
             </div>
           )}
@@ -346,14 +346,14 @@ export default function Index() {
               <blockquote
                 className="mt-6 px-5 py-4 rounded-lg text-lg italic leading-relaxed"
                 style={{
-                  background: "#131E2A",
-                  borderLeft: "3px solid #2A6090",
-                  color: "#A8C8D8",
+                  background: "#EBF3FB",
+                  borderLeft: "3px solid #2A7AB5",
+                  color: "#2A4A6A",
                 }}
               >
                 {s.quote}
               </blockquote>
-              <p className="mt-4 text-sm font-semibold tracking-wider uppercase" style={{ color: "#4A7FA5" }}>
+              <p className="mt-4 text-sm font-semibold tracking-wider uppercase" style={{ color: "#2A7AB5" }}>
                 {s.intro}
               </p>
               <div className="grid grid-cols-3 gap-4 mt-4">
@@ -361,15 +361,15 @@ export default function Index() {
                   <div
                     key={i}
                     className="rounded-xl p-5 border"
-                    style={{ background: "#0F1922", borderColor: "#1E3A52" }}
+                    style={{ background: "#FFFFFF", borderColor: "#DDE3EC" }}
                   >
                     <div
                       className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
-                      style={{ background: "#1E3A52" }}
+                      style={{ background: "#E8F2FB" }}
                     >
-                      <Icon name={item.icon as string} size={20} style={{ color: "#7EC8E3" }} />
+                      <Icon name={item.icon as string} size={20} style={{ color: "#2A7AB5" }} />
                     </div>
-                    <div className="font-semibold text-base mb-1" style={{ color: "#C8E8F4" }}>
+                    <div className="font-semibold text-base mb-1" style={{ color: "#1A2332" }}>
                       {item.label}
                     </div>
                     <div className="text-sm" style={{ color: "#6B8099" }}>
@@ -381,11 +381,11 @@ export default function Index() {
               <p
                 className="mt-5 text-base leading-relaxed"
                 style={{
-                  color: "#8FA8B8",
-                  background: "#0F1922",
+                  color: "#4A6070",
+                  background: "#FFFFFF",
                   borderRadius: 12,
                   padding: "14px 18px",
-                  border: "1px solid #1E3A52",
+                  border: "1px solid #DDE3EC",
                 }}
               >
                 {s.footer}
@@ -400,18 +400,18 @@ export default function Index() {
               <div className="grid grid-cols-5 gap-6 mt-6">
                 <div
                   className="col-span-2 rounded-xl p-6 border flex flex-col justify-center items-center text-center"
-                  style={{ background: "#0F1922", borderColor: "#1E3A52" }}
+                  style={{ background: "#FFFFFF", borderColor: "#DDE3EC" }}
                 >
                   <div
                     className="w-28 h-28 rounded-full flex items-center justify-center text-5xl mb-4"
-                    style={{ background: "#1E3A52", border: "2px solid #2A6090" }}
+                    style={{ background: "#E8F2FB", border: "2px solid #AACAE6" }}
                   >
                     👨‍🔬
                   </div>
-                  <div className="font-bold text-xl mb-1" style={{ color: "#E8F4F8" }}>
+                  <div className="font-bold text-xl mb-1" style={{ color: "#1A2332" }}>
                     В.И. Вернадский
                   </div>
-                  <div className="text-sm mb-4" style={{ color: "#7EC8E3" }}>
+                  <div className="text-sm mb-4" style={{ color: "#2A7AB5" }}>
                     {s.years}
                   </div>
                   <div className="flex flex-wrap gap-1.5 justify-center">
@@ -419,7 +419,7 @@ export default function Index() {
                       <span
                         key={i}
                         className="px-2 py-0.5 rounded text-xs"
-                        style={{ background: "#1A3350", color: "#A8C8D8" }}
+                        style={{ background: "#E8F2FB", color: "#1A5E99" }}
                       >
                         {r}
                       </span>
@@ -427,22 +427,22 @@ export default function Index() {
                   </div>
                 </div>
                 <div className="col-span-3 space-y-4">
-                  <div className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#4A7FA5" }}>
+                  <div className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#2A7AB5" }}>
                     Основной вклад:
                   </div>
                   {s.contributions?.map((c, i) => (
                     <div
                       key={i}
                       className="flex gap-4 rounded-xl p-4 border"
-                      style={{ background: "#0F1922", borderColor: "#1E3A52" }}
+                      style={{ background: "#FFFFFF", borderColor: "#DDE3EC" }}
                     >
                       <div
                         className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-                        style={{ background: "#1E3A52", color: "#7EC8E3" }}
+                        style={{ background: "#E8F2FB", color: "#1A5E99" }}
                       >
                         {i + 1}
                       </div>
-                      <p className="text-base leading-relaxed" style={{ color: "#A8C8D8" }}>
+                      <p className="text-base leading-relaxed" style={{ color: "#2A3A50" }}>
                         {c}
                       </p>
                     </div>
@@ -459,19 +459,19 @@ export default function Index() {
               <div
                 className="mt-5 p-4 rounded-xl border text-base leading-relaxed italic"
                 style={{
-                  background: "#0F1922",
-                  borderColor: "#1E3A52",
-                  color: "#A8C8D8",
-                  borderLeft: "3px solid #4A7FA5",
+                  background: "#EBF3FB",
+                  borderColor: "#AACAE6",
+                  color: "#2A4A6A",
+                  borderLeft: "3px solid #2A7AB5",
                 }}
               >
-                <span className="font-bold not-italic" style={{ color: "#7EC8E3" }}>
+                <span className="font-bold not-italic" style={{ color: "#1A5E99" }}>
                   Определение:{" "}
                 </span>
                 {s.definition}
               </div>
               <div className="mt-4">
-                <div className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#4A7FA5" }}>
+                <div className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#2A7AB5" }}>
                   Функции живого вещества:
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -479,7 +479,7 @@ export default function Index() {
                     <div
                       key={i}
                       className="flex gap-4 rounded-xl p-4 border"
-                      style={{ background: "#0F1922", borderColor: "#1E3A52" }}
+                      style={{ background: "#FFFFFF", borderColor: "#DDE3EC" }}
                     >
                       <div
                         className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
@@ -491,7 +491,7 @@ export default function Index() {
                         <div className="font-semibold text-sm mb-1" style={{ color: f.color }}>
                           {f.name}
                         </div>
-                        <div className="text-sm leading-snug" style={{ color: "#7A9AB0" }}>
+                        <div className="text-sm leading-snug" style={{ color: "#5A7080" }}>
                           {f.desc}
                         </div>
                       </div>
@@ -511,7 +511,7 @@ export default function Index() {
                   <div
                     key={i}
                     className="rounded-xl p-5 border flex gap-4"
-                    style={{ background: "#0F1922", borderColor: "#1E3A52" }}
+                    style={{ background: "#FFFFFF", borderColor: "#DDE3EC" }}
                   >
                     <div
                       className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
@@ -523,7 +523,7 @@ export default function Index() {
                       <div className="font-bold mb-1.5" style={{ color: t.color }}>
                         {t.name}
                       </div>
-                      <div className="text-sm leading-snug" style={{ color: "#7A9AB0" }}>
+                      <div className="text-sm leading-snug" style={{ color: "#5A7080" }}>
                         {t.desc}
                       </div>
                     </div>
@@ -532,7 +532,7 @@ export default function Index() {
               </div>
               <div
                 className="mt-4 px-5 py-3 rounded-xl text-sm leading-relaxed font-medium"
-                style={{ background: "#1A2E40", color: "#A8C8D8", border: "1px solid #2A4F6A" }}
+                style={{ background: "#EBF3FB", color: "#2A4A6A", border: "1px solid #AACAE6" }}
               >
                 💡 <span className="font-bold">Главная идея:</span> {s.footer}
               </div>
@@ -546,9 +546,9 @@ export default function Index() {
               <blockquote
                 className="mt-5 px-5 py-4 rounded-lg text-base italic leading-relaxed text-center"
                 style={{
-                  background: "#131E2A",
-                  borderLeft: "3px solid #2A6090",
-                  color: "#A8C8D8",
+                  background: "#EBF3FB",
+                  borderLeft: "3px solid #2A7AB5",
+                  color: "#2A4A6A",
                 }}
               >
                 «{s.quote}»
@@ -558,18 +558,18 @@ export default function Index() {
                   <div
                     key={i}
                     className="rounded-xl p-6 border text-center"
-                    style={{ background: "#0F1922", borderColor: "#1E3A52" }}
+                    style={{ background: "#FFFFFF", borderColor: "#DDE3EC" }}
                   >
                     <div
                       className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
-                      style={{ background: p.color + "22" }}
+                      style={{ background: p.color + "33" }}
                     >
                       <Icon name={p.icon as string} size={28} style={{ color: p.color }} />
                     </div>
                     <div className="font-bold text-base mb-2" style={{ color: p.color }}>
                       {p.title}
                     </div>
-                    <div className="text-sm leading-relaxed" style={{ color: "#7A9AB0" }}>
+                    <div className="text-sm leading-relaxed" style={{ color: "#5A7080" }}>
                       {p.text}
                     </div>
                   </div>
@@ -585,7 +585,7 @@ export default function Index() {
               <div className="mt-5 flex items-center justify-center gap-3 mb-4">
                 <span
                   className="px-4 py-1.5 rounded-full text-sm font-medium"
-                  style={{ background: "#2A1E4A", color: "#CE93D8", border: "1px solid #6A3D8A" }}
+                  style={{ background: "#F3E8FC", color: "#7B1FA2", border: "1px solid #CE93D8" }}
                 >
                   от греч. {s.term}
                 </span>
@@ -593,13 +593,13 @@ export default function Index() {
               <div
                 className="p-5 rounded-xl border mb-5 text-base leading-relaxed"
                 style={{
-                  background: "#1A1028",
-                  borderColor: "#3D1E5A",
-                  color: "#D8B4E8",
+                  background: "#FAF0FE",
+                  borderColor: "#CE93D8",
+                  color: "#4A1A6A",
                   borderLeft: "3px solid #9C27B0",
                 }}
               >
-                <span className="font-bold" style={{ color: "#CE93D8" }}>Определение: </span>
+                <span className="font-bold" style={{ color: "#7B1FA2" }}>Определение: </span>
                 {s.definition}
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -607,11 +607,11 @@ export default function Index() {
                   <div
                     key={i}
                     className="rounded-xl p-5 border flex gap-4"
-                    style={{ background: "#0F1922", borderColor: "#1E3A52" }}
+                    style={{ background: "#FFFFFF", borderColor: "#DDE3EC" }}
                   >
                     <div
                       className="flex-shrink-0 w-11 h-11 rounded-lg flex items-center justify-center"
-                      style={{ background: b.color + "22" }}
+                      style={{ background: b.color + "33" }}
                     >
                       <Icon name={b.icon as string} size={22} style={{ color: b.color }} />
                     </div>
@@ -619,7 +619,7 @@ export default function Index() {
                       <div className="font-bold mb-1.5" style={{ color: b.color }}>
                         {b.title}
                       </div>
-                      <div className="text-sm leading-snug" style={{ color: "#7A9AB0" }}>
+                      <div className="text-sm leading-snug" style={{ color: "#5A7080" }}>
                         {b.text}
                       </div>
                     </div>
@@ -638,11 +638,11 @@ export default function Index() {
                   <div
                     key={i}
                     className="rounded-xl p-5 border flex gap-4"
-                    style={{ background: "#0F1922", borderColor: "#1E3A52" }}
+                    style={{ background: "#FFFFFF", borderColor: "#DDE3EC" }}
                   >
                     <div
                       className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ background: item.color + "22" }}
+                      style={{ background: item.color + "33" }}
                     >
                       <Icon name={item.icon as string} size={24} style={{ color: item.color }} />
                     </div>
@@ -650,7 +650,7 @@ export default function Index() {
                       <div className="font-bold mb-1.5" style={{ color: item.color }}>
                         {item.title}
                       </div>
-                      <div className="text-sm leading-snug" style={{ color: "#7A9AB0" }}>
+                      <div className="text-sm leading-snug" style={{ color: "#5A7080" }}>
                         {item.text}
                       </div>
                     </div>
@@ -666,24 +666,24 @@ export default function Index() {
               <SlideHeader tag={s.tag!} title={s.title} center />
               <div
                 className="mt-6 p-6 rounded-2xl border mb-5 text-lg leading-relaxed"
-                style={{ background: "#0F1922", borderColor: "#1E3A52", color: "#C8E8F4" }}
+                style={{ background: "#FFFFFF", borderColor: "#DDE3EC", color: "#1A2332" }}
               >
                 <p className="mb-3">{s.text1}</p>
-                <p className="font-semibold" style={{ color: "#7EC8E3" }}>
+                <p className="font-semibold" style={{ color: "#2A7AB5" }}>
                   {s.text2}
                 </p>
               </div>
               <div
                 className="p-5 rounded-xl text-base leading-relaxed font-medium"
                 style={{
-                  background: "linear-gradient(135deg, #1A2E40, #1A1028)",
-                  color: "#A8C8D8",
-                  border: "1px solid #2A4F6A",
+                  background: "linear-gradient(135deg, #EBF3FB, #F3E8FC)",
+                  color: "#2A4A6A",
+                  border: "1px solid #AACAE6",
                 }}
               >
                 🌿 {s.closing}
               </div>
-              <div className="mt-8 text-sm tracking-widest uppercase" style={{ color: "#2A4F6A" }}>
+              <div className="mt-8 text-sm tracking-widest uppercase" style={{ color: "#9ABACC" }}>
                 В.И. Вернадский · 1863–1945
               </div>
             </div>
@@ -694,13 +694,13 @@ export default function Index() {
       {/* Footer */}
       <footer
         className="flex items-center justify-between px-8 py-3 border-t"
-        style={{ borderColor: "#1E2A38", background: "#111820" }}
+        style={{ borderColor: "#DDE3EC", background: "#FFFFFF" }}
       >
         <button
           onClick={() => goTo(Math.max(current - 1, 0))}
           disabled={current === 0}
           className="flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-25"
-          style={{ background: "#1E3A52", color: "#7EC8E3" }}
+          style={{ background: "#E8F2FB", color: "#1A5E99" }}
         >
           <Icon name="ChevronLeft" size={16} />
           Назад
@@ -715,7 +715,7 @@ export default function Index() {
               style={{
                 width: current === i ? 24 : 8,
                 height: 8,
-                background: current === i ? "#4A7FA5" : "#1E3A52",
+                background: current === i ? "#2A7AB5" : "#AACAE6",
               }}
             />
           ))}
@@ -725,7 +725,7 @@ export default function Index() {
           onClick={() => goTo(Math.min(current + 1, total - 1))}
           disabled={current === total - 1}
           className="flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-25"
-          style={{ background: "#1E3A52", color: "#7EC8E3" }}
+          style={{ background: "#E8F2FB", color: "#1A5E99" }}
         >
           Далее
           <Icon name="ChevronRight" size={16} />
@@ -750,18 +750,18 @@ function SlideHeader({
     <div className={center ? "text-center" : ""}>
       <div
         className="inline-block px-3 py-1 rounded text-xs font-semibold tracking-widest uppercase mb-3"
-        style={{ background: "#1E3A52", color: "#4A7FA5" }}
+        style={{ background: "#E8F2FB", color: "#2A7AB5" }}
       >
         {tag}
       </div>
       <h2
         className="font-bold leading-tight"
-        style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", color: "#E8F4F8" }}
+        style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", color: "#1A2332" }}
       >
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-1 text-base" style={{ color: "#4A7FA5" }}>
+        <p className="mt-1 text-base" style={{ color: "#2A7AB5" }}>
           {subtitle}
         </p>
       )}
